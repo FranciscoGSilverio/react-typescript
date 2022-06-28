@@ -1,16 +1,22 @@
-import React from "react";
-import { ITasks } from "../../types/ITasks";
+import React, { useState } from "react";
 import Item from "./Item";
-import style from "./List.module.scss";
 
-const List = ({ tasks }: { tasks: ITasks[] }) => {
+const List = ({}) => {
+  const [tasks, setTasks] = useState([
+    {
+      task: "Matemática",
+      time: "02:02:02",
+    },
+  ]);
+
   return (
-    <aside className={style.listaTarefas}>
-      <h2>Today's studies:</h2>
+    <aside>
+      <h2>Today's studies</h2>
+
       <ul>
-        {tasks.map((info, index) => (
-          <Item key={index} {...info} />
-        ))}
+        {tasks.map((task: any, index: any) => {
+          return <Item key={index} {...task} />;
+        })}
       </ul>
     </aside>
   );

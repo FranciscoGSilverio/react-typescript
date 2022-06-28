@@ -1,16 +1,15 @@
 import React from "react";
 import Button from "../Button";
 import Clock from "./Clock";
-import style from "./StopWatch.module.scss";
 
 const StopWatch = () => {
   return (
-    <div className={style.cronometro}>
-      <p className={style.titulo}>Choose a card and start the stop watch</p>
-      <div className={style.relogioWrapper}>
+    <div>
+      <p>Chose a card and start the stopwatch!</p>
+      <div>
         <Clock />
       </div>
-      <Button>Start!</Button>
+      <Button>Start</Button>
     </div>
   );
 };
