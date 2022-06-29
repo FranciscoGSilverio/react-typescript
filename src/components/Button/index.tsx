@@ -1,8 +1,18 @@
 import React from "react";
 
-class Button extends React.Component<any, any> {
+class Button extends React.Component<{
+  type?: "button" | "submit" | "reset" | undefined;
+  className?: string;
+  children: string;
+}> {
   render() {
-    return <button>{this.props.children}</button>;
+    const { type = "button", className = "btn btn-primary" } = this.props;
+
+    return (
+      <button type={type} className={className}>
+        {this.props.children}
+      </button>
+    );
   }
 }
 

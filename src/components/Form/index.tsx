@@ -1,7 +1,10 @@
 import React, { FormEvent } from "react";
+import { ITasks } from "../../types/ITaks";
 import Button from "../Button";
 
-class Form extends React.Component {
+class Form extends React.Component<{
+  setTasks: React.Dispatch<React.SetStateAction<ITasks[]>>;
+}> {
   state = {
     task: "",
     time: "",
@@ -16,25 +19,33 @@ class Form extends React.Component {
 
   addTask(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log("state: ", this.state);
+
+    this.props.setTasks((tasks) => [...tasks, { ...this.state }]);
+
+    this.setState({
+      task: "",
+      time: "",
+    });
   }
 
   render() {
     return (
       <form onSubmit={this.addTask.bind(this)}>
-        <div>
+        <div className="form-group my-1">
           <label htmlFor="task">Subject </label>
           <input
             type="text"
             id="task"
             name="task"
             placeholder="Enter the subject..."
+            className="form-control"
             value={this.state.task}
             onChange={(event) => this.changeHandler(event)}
           />
         </div>
-        <div>
-          <label htmlFor="time"></label>
+
+        <div className="form-group my-1">
+          <label htmlFor="time">Time</label>
           <input
             type="time"
             step="1"
@@ -42,12 +53,18 @@ class Form extends React.Component {
             name="time"
             min="00:00:00"
             max="1:30:00"
+            className="form-control"
             value={this.state.time}
             onChange={(event) => this.changeHandler(event)}
             required
           />
         </div>
-        <Button>Add</Button>
+
+        <div className="mt-4 text-center">
+          <Button type="submit" className="btn btn-success">
+            Add Task
+          </Button>
+        </div>
       </form>
     );
   }

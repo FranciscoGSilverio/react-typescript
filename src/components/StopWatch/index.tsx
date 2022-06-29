@@ -6,10 +6,12 @@ const StopWatch = () => {
   return (
     <div>
       <p>Chose a card and start the stopwatch!</p>
-      <div>
+      <div className="text-center" >
         <Clock />
       </div>
-      <Button>Start</Button>
+      <div className="mt-4 text-center">
+        <Button className="btn btn-danger">Start!</Button>
+      </div>
     </div>
   );
 };
