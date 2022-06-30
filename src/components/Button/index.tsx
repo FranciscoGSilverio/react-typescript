@@ -1,19 +1,18 @@
 import React from "react";
 
-class Button extends React.Component<{
+interface Props {
   type?: "button" | "submit" | "reset" | undefined;
   className?: string;
-  children: string;
-}> {
-  render() {
-    const { type = "button", className = "btn btn-primary" } = this.props;
-
-    return (
-      <button type={type} className={className}>
-        {this.props.children}
-      </button>
-    );
-  }
+  onClick?: () => void;
+  children: React.ReactNode;
 }
+
+const Button = ({ type, className, onClick, children }: Props) => {
+  return (
+    <button type={type} className={className} onClick={onClick}>
+      {children}
+    </button>
+  );
+};
 
 export default Button;

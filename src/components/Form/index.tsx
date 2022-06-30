@@ -1,73 +1,67 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
 import { ITasks } from "../../types/ITaks";
 import Button from "../Button";
+import { v4 as uuidv4 } from "uuid";
 
-class Form extends React.Component<{
+interface Props {
   setTasks: React.Dispatch<React.SetStateAction<ITasks[]>>;
-}> {
-  state = {
-    task: "",
-    time: "",
-  };
+  tasks: ITasks[] | [];
+}
 
-  changeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({
-      ...this.state,
-      [event.currentTarget.name]: event.currentTarget.value,
-    });
-  }
+const Form = ({ setTasks, tasks }: Props) => {
+  const [task, setTask] = useState("");
+  const [time, setTime] = useState("00:00");
 
-  addTask(event: FormEvent<HTMLFormElement>) {
+  const addTask = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    this.props.setTasks((tasks) => [...tasks, { ...this.state }]);
+    setTasks((prevTasks) => [
+      ...prevTasks,
+      { task, time, selected: false, completed: false, id: uuidv4() },
+    ]);
 
-    this.setState({
-      task: "",
-      time: "",
-    });
-  }
+    setTask("");
+    setTime("00:00");
+  };
 
-  render() {
-    return (
-      <form onSubmit={this.addTask.bind(this)}>
-        <div className="form-group my-1">
-          <label htmlFor="task">Subject </label>
-          <input
-            type="text"
-            id="task"
-            name="task"
-            placeholder="Enter the subject..."
-            className="form-control"
-            value={this.state.task}
-            onChange={(event) => this.changeHandler(event)}
-          />
-        </div>
+  return (
+    <form onSubmit={addTask}>
+      <div className="form-group my-1">
+        <label htmlFor="task">Subject </label>
+        <input
+          type="text"
+          id="task"
+          name="task"
+          placeholder="Enter the subject..."
+          className="form-control"
+          value={task}
+          onChange={(event) => setTask(event.currentTarget.value)}
+        />
+      </div>
 
-        <div className="form-group my-1">
-          <label htmlFor="time">Time</label>
-          <input
-            type="time"
-            step="1"
-            id="time"
-            name="time"
-            min="00:00:00"
-            max="1:30:00"
-            className="form-control"
-            value={this.state.time}
-            onChange={(event) => this.changeHandler(event)}
-            required
-          />
-        </div>
+      <div className="form-group my-1">
+        <label htmlFor="time">Time</label>
+        <input
+          type="time"
+          step="1"
+          id="time"
+          name="time"
+          min="00:00:00"
+          max="1:30:00"
+          className="form-control"
+          value={time}
+          onChange={(event) => setTime(event.currentTarget.value)}
+          required
+        />
+      </div>
 
-        <div className="mt-4 text-center">
-          <Button type="submit" className="btn btn-success">
-            Add Task
-          </Button>
-        </div>
-      </form>
-    );
-  }
-}
+      <div className="mt-4 text-center">
+        <Button type="submit" className="btn btn-success">
+          Add Task
+        </Button>
+      </div>
+    </form>
+  );
+};
 
 export default Form;
