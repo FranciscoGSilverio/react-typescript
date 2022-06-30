@@ -10,8 +10,6 @@ interface Props {
 }
 
 const StopWatch = ({ selected, finishTask }: Props) => {
-  console.log(timeToSeconds("01:01:01"));
-
   const [time, setTime] = useState<number>();
 
   useEffect(() => {
@@ -21,8 +19,6 @@ const StopWatch = ({ selected, finishTask }: Props) => {
   }, [selected]);
 
   const regressive = (counter: number = 0) => {
-    console.log("Start!");
-
     setTimeout(() => {
       if (counter > 0) {
         setTime(counter - 1);

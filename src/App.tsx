@@ -43,8 +43,6 @@ function App() {
     }
   };
 
-  useEffect(() => console.log(selected), [selected]);
-
   return (
     <div className="d-flex justify-content-around mt-5">
       <div className="col-sm-auto">
