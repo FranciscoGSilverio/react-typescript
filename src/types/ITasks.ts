@@ -1,4 +1,6 @@
 export interface ITasks {
-  task: string;
+  name: string;
   time: string;
+  finished?: boolean;
+  deleted?: boolean;
 }
