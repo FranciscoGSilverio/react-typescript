@@ -1,17 +1,15 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
-  const [currentTaskTime, setCurrentTaskTime] = useState(0);
-  const [selectedTask, setSelectedTask] = useState();
+  const [time, setTime] = useState("00:00:00");
+  useEffect(() => console.log(time), [time]);
   return (
     <AppContext.Provider
       value={{
-        selectedTask,
-        setSelectedTask,
-        currentTaskTime,
-        setCurrentTaskTime,
+        time,
+        setTime,
       }}
     >
       {children}
